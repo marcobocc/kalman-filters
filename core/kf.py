@@ -20,23 +20,26 @@ class KalmanFilter:
         Covariance matrix of the measurement noise vector, assumed zero mean.
 
     x : numpy.ndarray(n, 1)
-        Predicted state of the system. If the last call was predict(), this is the a priori state
-        vector. If the last call was update(), this is the a posteriori state vector.
+        Predicted state vector of the system. If the last call was predict(),
+        this is the a priori state. If the last call was update(), this is the
+        a posteriori state.
 
     P : numpy.ndarray(n, n)
-        Covariance matrix of the predicted state. If the last call was predict(), this is the a
-        priori state covariance matrix. If the last call was update(), this is the a posteriori
-        prediction covariance matrix.
+        Covariance matrix of the predicted state. If the last call was
+        predict(), this is the a priori state covariance. If the last call was
+        update(), this is the a posteriori prediction covariance matrix.
 
     residual : numpy.ndarray(p, n)
-        Error between the predicted output and the measurement after update(). If the filter is
-        optimal, the sequence of residuals is white-noise with covariance matrix S.
+        Error between the predicted output and the measurement after update().
+        If the filter is optimal, the sequence of residuals is white-noise with
+        covariance matrix S.
 
     S : numpy.ndarray(p, p)
         Covariance matrix of the residual computed in the last call to update().
 
     S_inv : numpy.ndarray(p, p)
-        Pre-computed inverse of the covariance matrix S computed in the last call to update().
+        Pre-computed inverse of the covariance matrix S computed in the last
+        call to update().
 
     K : numpy.ndarray(n, p)
         Kalman gain matrix computed in the last call to update().
@@ -56,10 +59,10 @@ class KalmanFilter:
 
     def predict(self, control_input):
         """
-        Predicts the state vector one step ahead in time and computes the corresponding prediction
-        covariance matrix P. If the previous call was update(), prediction is done from the a
-        posteriori state vector. If the previous call was predict(), prediction is done from the
-        previously predicted state vector.
+        Predicts the state of the system one step ahead in time and computes
+        the new prediction covariance. If the previous call was update(),
+        prediction is done from the a posteriori state. If the previous call
+        was predict(), prediction is done from the previously predicted state.
 
         Parameters
         ----------
@@ -71,9 +74,10 @@ class KalmanFilter:
 
     def update(self, measurement):
         """
-        Updates the filter using the given measurement and computes the a posteriori state vector
-        and prediction covariance matrix P. In case there are no available measurements, update()
-        should be ignored and predict() should be used to advance the filter one step forward.
+        Updates the residual, the residual covariance, the Kalman gain and
+        computes the a posteriori state and prediction covariance. In case
+        there are no available measurements, update() should be ignored and
+        predict() should be used to advance the filter one step forward.
 
         Parameters
         ----------
@@ -93,10 +97,11 @@ class KalmanFilter:
 
     def predict_steady(self, control_input):
         """
-        Predicts the state vector one step ahead in time without computing the corresponding
-        prediction covariance matrix P. If the previous call was update() or update_steady(),
-        prediction is done from the a posteriori state vector. If the previous call was predict()
-        or predict_steady(), prediction is done from the previously predicted state vector.
+        Predicts the state one step ahead in time without computing the new
+        prediction covariance. If the previous call was update_steady() or
+        update(), prediction is done from the a posteriori state. If the
+        previous call was predict_steady() or predict(), prediction is done
+        from the previously predicted state.
 
         Parameters
         ----------
@@ -107,10 +112,11 @@ class KalmanFilter:
 
     def update_steady(self, measurement):
         """
-        Updates the Kalman gain matrix K and computes the a posteriori state vector. Does not
-        update the prediction covariance matrix P, nor the covariance matrices of the residual S
-        and S_inv. In case there are no available measurements, update_steady() should be ignored
-        and predict_steady() should be used to advance the filter one step forward.
+        Updates the residual and the a posteriori state with the given
+        measurement. Does not compute the residual covariance, nor the Kalman
+        gain, nor the prediction covariance. In case there are no available
+        measurements, update_steady() should be ignored and predict_steady()
+        should be used to advance the filter one step forward.
 
         Parameters
         ----------
