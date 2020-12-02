@@ -5,31 +5,31 @@ class ExtendedKalmanFilter:
     Attributes
     ----------
     f : callable
-    	Function that computes the state transition of the system.
-    	Arguments are:
+        Function that computes the state transition of the system.
+        Arguments are:
         x : numpy.ndarray(n, 1)
         u : numpy.ndarray(m, 1)
         Returns:
         numpy.ndarray(n, 1)
 
     h : callable
-    	Function that computes the measurement of the system.
-    	Arguments are:
+        Function that computes the measurement of the system.
+        Arguments are:
         x : numpy.ndarray(n, 1)
         Returns:
         numpy.ndarray(p, 1)
 
     Jf : callable
-		Function that computes the Jacobian matrix of f.
-		Arguments are:
+	    Function that computes the Jacobian matrix of f.
+	    Arguments are:
         x : numpy.ndarray(n, 1)
         u : numpy.ndarray(m, 1)
         Returns:
         numpy.ndarray(n, n)
 
     Jh : callable
-		Function that computes the Jacobian matrix of h.
-		Arguments are:
+	    Function that computes the Jacobian matrix of h.
+	    Arguments are:
         x : numpy.ndarray(n, 1)
         Returns:
         numpy.ndarray(p, n)
@@ -69,16 +69,16 @@ class ExtendedKalmanFilter:
 	def __init__(self, f, h, Jf, Jh, Q, R, x0, P0):
 		self.f = f
 		self.h = h
-		self.Jf = Jf												# (n, n)
-		self.Jh = Jh												# (p, n)
-		self.Q = Q													# (n, n)
-		self.R = R													# (p, p)
-		self.x = x0													# (n, 1)
-		self.P = P0													# (n, n)
-		self.residual = np.zeros((R.shape[0], Q.shape[0]))			# (p, n)
-		self.S = np.zeros((R.shape[0], R.shape[0]))					# (p, p)
-		self.S_inv = np.zeros((R.shape[0], R.shape[0]))				# (p, p)
-		self.K = np.transpose(np.zeros(R.shape))					# (n, p)
+		self.Jf = Jf                                            # (n, n)
+		self.Jh = Jh                                            # (p, n)
+		self.Q = Q                                              # (n, n)
+		self.R = R                                              # (p, p)
+		self.x = x0                                             # (n, 1)
+		self.P = P0                                             # (n, n)
+		self.residual = np.zeros((R.shape[0], Q.shape[0]))      # (p, n)
+		self.S = np.zeros((R.shape[0], R.shape[0]))             # (p, p)
+		self.S_inv = np.zeros((R.shape[0], R.shape[0]))         # (p, p)
+		self.K = np.transpose(np.zeros(R.shape))                # (n, p)
 
 	def predict(self, control_input):
 		"""
