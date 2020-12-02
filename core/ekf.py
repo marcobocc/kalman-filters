@@ -20,16 +20,16 @@ class ExtendedKalmanFilter:
         numpy.ndarray(p, 1)
 
     Jf : callable
-	    Function that computes the Jacobian matrix of f.
-	    Arguments are:
+        Function that computes the Jacobian matrix of f.
+        Arguments are:
         x : numpy.ndarray(n, 1)
         u : numpy.ndarray(m, 1)
         Returns:
         numpy.ndarray(n, n)
 
     Jh : callable
-	    Function that computes the Jacobian matrix of h.
-	    Arguments are:
+        Function that computes the Jacobian matrix of h.
+        Arguments are:
         x : numpy.ndarray(n, 1)
         Returns:
         numpy.ndarray(p, n)
